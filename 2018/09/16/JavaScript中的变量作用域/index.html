@@ -5,18 +5,20 @@
   
 
   
-  <title>Bohao的抽水马桶</title>
+  <title>JavaScript 中的变量作用域 | Bohao的抽水马桶</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="有事请联系 bj050323@gmail.com">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Bohao的抽水马桶">
-<meta property="og:url" content="https://gnosis23.github.io/bohao/index.html">
+  <meta name="description" content="术语以下这些术语都是等价的  scope === 作用域 function === 函数 var === variable、变量 global === 全局 local === 本地、局部 closure === 闭包  一道面试题前端程序员应该经常会遇到下面这道面试题（我也出过😜）：123456// 请写出下面程序的输出for (var i = 0; i &amp;lt; 5; i++) &amp;#123;">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 中的变量作用域">
+<meta property="og:url" content="https://gnosis23.github.io/bohao/2018/09/16/JavaScript中的变量作用域/index.html">
 <meta property="og:site_name" content="Bohao的抽水马桶">
-<meta property="og:description" content="有事请联系 bj050323@gmail.com">
+<meta property="og:description" content="术语以下这些术语都是等价的  scope === 作用域 function === 函数 var === variable、变量 global === 全局 local === 本地、局部 closure === 闭包  一道面试题前端程序员应该经常会遇到下面这道面试题（我也出过😜）：123456// 请写出下面程序的输出for (var i = 0; i &amp;lt; 5; i++) &amp;#123;">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-09-16T14:33:13.206Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bohao的抽水马桶">
-<meta name="twitter:description" content="有事请联系 bj050323@gmail.com">
+<meta name="twitter:title" content="JavaScript 中的变量作用域">
+<meta name="twitter:description" content="术语以下这些术语都是等价的  scope === 作用域 function === 函数 var === variable、变量 global === 全局 local === 本地、局部 closure === 闭包  一道面试题前端程序员应该经常会遇到下面这道面试题（我也出过😜）：123456// 请写出下面程序的输出for (var i = 0; i &amp;lt; 5; i++) &amp;#123;">
   
     <link rel="alternate" href="/bohao/atom.xml" title="Bohao的抽水马桶" type="application/atom+xml">
   
@@ -67,9 +69,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-JavaScript中的变量作用域" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-JavaScript中的变量作用域" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/bohao/2018/09/16/JavaScript中的变量作用域/" class="article-date">
   <time datetime="2018-09-16T13:22:44.000Z" itemprop="datePublished">2018-09-16</time>
@@ -82,8 +82,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/bohao/2018/09/16/JavaScript中的变量作用域/">JavaScript 中的变量作用域</a>
+    <h1 class="article-title" itemprop="name">
+      JavaScript 中的变量作用域
     </h1>
   
 
@@ -139,109 +139,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-第一篇" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/bohao/2018/09/02/第一篇/" class="article-date">
-  <time datetime="2018-09-02T14:17:29.000Z" itemprop="datePublished">2018-09-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/bohao/2018/09/02/第一篇/">第一篇</a>
-    </h1>
+    <a href="/bohao/2018/09/02/第一篇/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">第一篇</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="朋友你好"><a href="#朋友你好" class="headerlink" title="朋友你好"></a>朋友你好</h2><p>第一篇先试试水。</p>
-<p>博客是个好地方，可以把各种东西按标签归类，以后想看的时候就能按需检索。</p>
-<p>正如这个博客的名字“抽水马桶”，里面装的是一些乱七八槽的东西。这个博客里可能会有如下主题：</p>
-<ul>
-<li>工作上的体会</li>
-<li>工作、生活上的抱怨，比如 Node.js 程序的报错就非常不友好。</li>
-<li>业余制作小东西的介绍</li>
-<li>源码分析</li>
-<li>书评</li>
-</ul>
-<p>总之想写什么就写什么。</p>
-<h2 id="下面是一些功能测试"><a href="#下面是一些功能测试" class="headerlink" title="下面是一些功能测试"></a>下面是一些功能测试</h2><p>没什么内容，各位可以走了。</p>
-<h3 id="标题功能测试"><a href="#标题功能测试" class="headerlink" title="标题功能测试"></a>标题功能测试</h3><p>这个博客的主题有点问题，把我的子标题（来的快，去的也快…）给挡掉了。</p>
-<h3 id="代码测试"><a href="#代码测试" class="headerlink" title="代码测试"></a>代码测试</h3><p>看看代码怎么显示：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"Hello Hexo"</span>)</span><br></pre></td></tr></table></figure></p>
-<h3 id="图片测试"><a href="#图片测试" class="headerlink" title="图片测试"></a>图片测试</h3><p>看看图片怎么显示：<br><img src="/bohao/images/2.jpg" alt="哇，传说">.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://gnosis23.github.io/bohao/2018/09/02/第一篇/" data-id="cjm4w6bhy0001aknr3x3gbhh5" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/bohao/tags/电影/">电影</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/bohao/tags/读书/">读书</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/bohao/2018/09/02/hello-world/" class="article-date">
-  <time datetime="2018-09-02T14:05:08.388Z" itemprop="datePublished">2018-09-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/bohao/2018/09/02/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://gnosis23.github.io/bohao/2018/09/02/hello-world/" data-id="cjm4w6bif0008aknrrvmkbzyj" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
