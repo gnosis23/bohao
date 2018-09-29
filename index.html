@@ -69,6 +69,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-通过画图学习JavaScript中的原型" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/bohao/2018/09/29/通过画图学习JavaScript中的原型/" class="article-date">
+  <time datetime="2018-09-29T14:28:18.000Z" itemprop="datePublished">2018-09-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/bohao/2018/09/29/通过画图学习JavaScript中的原型/">通过画图学习 JavaScript 中的原型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="原由"><a href="#原由" class="headerlink" title="原由"></a>原由</h2><p>最近看了 Zakas 写的《JavaScript 高级程序设计》一书中部分章节，发现比犀牛书好了不止一点。其中对新手友好的地方就是有很多图片，很多模糊的地方瞬间变得清晰。今天我就尝试用几张图片来解释原型里的一些常用函数。</p>
+<h3 id="例子一"><a href="#例子一" class="headerlink" title="例子一"></a>例子一</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">object</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">  F.prototype = o;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> F();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相信大家第一次看到 Douglas Crockford 写的 Prototypal Inheritance in JavaScript 中的 <code>object</code> 函数一定会傻掉。<br>让我们尝试画出来对象的结构图来：</p>
+<p><img src="/bohao/images/b0001.png" alt="object"></p>
+<p>作为验证，我还特地截了 Chrome 里的图</p>
+<p><img src="/bohao/images/b0002.png" alt="b0002"></p>
+<p>是不是对这个函数有了新的理解，嘿嘿嘿。</p>
+<h3 id="例子二"><a href="#例子二" class="headerlink" title="例子二"></a>例子二</h3><p>Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的<strong>proto</strong>。 （请打开浏览器控制台以查看运行结果。）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  isHuman: <span class="literal">false</span>,</span><br><span class="line">  printIntroduction: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>. Am I human? <span class="subst">$&#123;<span class="keyword">this</span>.isHuman&#125;</span>`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> me = <span class="built_in">Object</span>.create(person);</span><br><span class="line"></span><br><span class="line">me.name = <span class="string">"Matthew"</span>; <span class="comment">// "name" is a property set on "me", but not on "person"</span></span><br><span class="line">me.isHuman = <span class="literal">true</span>; <span class="comment">// inherited properties can be overwritten</span></span><br></pre></td></tr></table></figure>
+<p><code>Object.create</code> 也是一个常用的函数，用图片来展示上文中的对象结构。</p>
+<p><img src="/bohao/images/b0003.png" alt="Object.create"></p>
+<h3 id="例子三"><a href="#例子三" class="headerlink" title="例子三"></a>例子三</h3><p>基于原型的继承代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.a = <span class="number">42</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Parent class method</span></span><br><span class="line">Parent.prototype.method = <span class="function"><span class="keyword">function</span> <span class="title">method</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Child class constructor</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  Parent.call(<span class="keyword">this</span>);</span><br><span class="line">  <span class="keyword">this</span>.b = <span class="number">3.14159</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Inherit from the parent class</span></span><br><span class="line">Child.prototype = <span class="built_in">Object</span>.create(Parent.prototype);</span><br><span class="line">Child.prototype.constructor = Child;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Child class method</span></span><br><span class="line">Child.prototype.method = <span class="function"><span class="keyword">function</span> <span class="title">method</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  Parent.prototype.method.call(<span class="keyword">this</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Instantiate</span></span><br><span class="line"><span class="keyword">var</span> instance = <span class="keyword">new</span> Child();</span><br></pre></td></tr></table></figure>
+<p>它的结构图就比较复杂点了</p>
+<p><img src="/bohao/images/b0005.png" alt="继承"></p>
+<h3 id="例子-N"><a href="#例子-N" class="headerlink" title="例子 N"></a>例子 N</h3><p>以后碰到更复杂的也能搞定</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://gnosis23.github.io/bohao/2018/09/29/通过画图学习JavaScript中的原型/" data-id="cjmnj7wc00003gcnrslhsmgmi" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/bohao/tags/JavaScript/">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaScript中的变量作用域" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/bohao/2018/09/16/JavaScript中的变量作用域/" class="article-date">
@@ -131,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://gnosis23.github.io/bohao/2018/09/16/JavaScript中的变量作用域/" data-id="cjm4w6bht0000aknrznzhvt8m" class="article-share-link">Share</a>
+      <a data-url="https://gnosis23.github.io/bohao/2018/09/16/JavaScript中的变量作用域/" data-id="cjmnj7wan0000gcnromd4r6vg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/bohao/tags/JavaScript/">JavaScript</a></li></ul>
@@ -184,7 +238,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://gnosis23.github.io/bohao/2018/09/02/第一篇/" data-id="cjm4w6bhy0001aknr3x3gbhh5" class="article-share-link">Share</a>
+      <a data-url="https://gnosis23.github.io/bohao/2018/09/02/第一篇/" data-id="cjmnj7wc20004gcnrrl3e7ser" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/bohao/tags/电影/">电影</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/bohao/tags/读书/">读书</a></li></ul>
@@ -231,7 +285,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://gnosis23.github.io/bohao/2018/09/02/hello-world/" data-id="cjm4w6bif0008aknrrvmkbzyj" class="article-share-link">Share</a>
+      <a data-url="https://gnosis23.github.io/bohao/2018/09/02/hello-world/" data-id="cjmnj7wcg0009gcnrei7jimia" class="article-share-link">Share</a>
       
       
     </footer>
@@ -264,7 +318,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/bohao/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/bohao/tags/电影/" style="font-size: 10px;">电影</a> <a href="/bohao/tags/读书/" style="font-size: 10px;">读书</a>
+      <a href="/bohao/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/bohao/tags/电影/" style="font-size: 10px;">电影</a> <a href="/bohao/tags/读书/" style="font-size: 10px;">读书</a>
     </div>
   </div>
 
@@ -284,6 +338,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/bohao/2018/09/29/通过画图学习JavaScript中的原型/">通过画图学习 JavaScript 中的原型</a>
+          </li>
         
           <li>
             <a href="/bohao/2018/09/16/JavaScript中的变量作用域/">JavaScript 中的变量作用域</a>
